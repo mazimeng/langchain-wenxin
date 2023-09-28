@@ -49,7 +49,7 @@ class BaiduCommon(BaseModel):
     baidu_secret_key: Optional[str] = None
     """Baidu Cloud secret key."""
 
-    @root_validator()
+    @root_validator(skip_on_failure=True)
     def validate_environment(cls, values: Dict) -> Dict:  # noqa: N805
         """Validate that api key and python package exists in environment."""
         baidu_api_key = get_from_dict_or_env(
@@ -114,7 +114,7 @@ class Wenxin(LLM, BaiduCommon):
             response = model("What are the biggest risks facing humanity?")
     """
 
-    @root_validator()
+    @root_validator(skip_on_failure=True)
     def raise_warning(cls, values: Dict) -> Dict:  # noqa: N805
         """Raise warning that this class is deprecated."""
         warnings.warn(

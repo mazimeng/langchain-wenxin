@@ -41,7 +41,7 @@ class WenxinEmbeddings(BaseModel, Embeddings):
 
         extra = Extra.forbid
 
-    @root_validator()
+    @root_validator(skip_on_failure=True)
     def validate_environment(cls, values: Dict) -> Dict:  # noqa: N805
         """Validate that api key and python package exists in environment."""
         baidu_api_key = get_from_dict_or_env(
